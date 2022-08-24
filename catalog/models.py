@@ -32,6 +32,12 @@ class Book(models.Model):
         """returns URL to access a detailed record for this book"""
         return reverse('book-detail',args=[str(self.id)])
 
+    def display_genre(self):
+        """create a string for genre"""
+        return ','.join(genre.name for genre in self.genre.all()[:3])
+    
+    display_genre.short_description= 'Genre'
+
     
 class BookInstance(models.Model):
     """model representing a specific copy of the book"""
@@ -71,3 +77,6 @@ class Author(models.Model):
     def get_absolute_url(self):
         """returns a URL to acces a particular author"""
         return reverse ('autor-detail',args=[str(self.id)])
+
+    def __str__(self):
+        return f'{self.last_name}, {self.first_name} '
