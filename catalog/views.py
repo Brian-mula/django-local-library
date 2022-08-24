@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render
 from .models import Book,BookInstance,Author,Genre
 # Create your views here.
@@ -10,6 +9,7 @@ def index(request):
     # available books
     num_instance_available=BookInstance.objects.filter(status__exact='a').count()
     num_authors=Author.objects.count()
+    num_genre=Genre.objects.count()
     page_title='Local library'
 
     context={
@@ -17,7 +17,8 @@ def index(request):
         'num_instances':num_instances,
         'num_instance_available':num_instance_available,
         'num_authors':num_authors,
-        'page_title':page_title
+        'page_title':page_title,
+        'num_genre':num_genre
     }
 
     # render the html index with data in context
