@@ -12,6 +12,8 @@ def index(request):
     num_authors=Author.objects.count()
     num_genre=Genre.objects.count()
     page_title='Local library'
+    num_visits=request.session.get('num_visits',0)
+    request.session['num_visits']=num_visits + 1
 
     context={
         'num_books':num_books,
@@ -19,7 +21,8 @@ def index(request):
         'num_instance_available':num_instance_available,
         'num_authors':num_authors,
         'page_title':page_title,
-        'num_genre':num_genre
+        'num_genre':num_genre,
+        'num_visits':num_visits
     }
 
     # render the html index with data in context
